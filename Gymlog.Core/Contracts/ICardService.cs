@@ -5,8 +5,8 @@ namespace Gymlog.Core.Contracts
 {
     public interface ICardService
     {
-        Task<int> CreateAsync(string firstName,string lastName, DateTime startData, DateTime endDatam, string cardId);
-        //Task<MyCardView> MyCard(string userId);
+        Task<int> CreateAsync(string phoneNumber, DateTime startData, DateTime endData, string cardId);
+        Task<MyCardView> MyCard(string userId);
         Task<EditCard> GetViewForEdit(int cardId);
 
         Task EditAsync(EditCard model);

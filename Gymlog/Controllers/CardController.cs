@@ -44,6 +44,16 @@ namespace Gymlog.Controllers
             return View();
         }
 
+        [Authorize(Roles = AdminRole)]
+        [HttpPost]
+        public async Task<IActionResult> Create(string phoneNumber, DateTime startData, DateTime endData, string cardId)
+        {
+            var card = await cardService.CreateAsync(phoneNumber, startData, endData, cardId);
+
+            TempData[UserMessageSuccess] = "Картата е добавена";
+
+            return RedirectToAction(nameof(CheckCard), new { cardNumber = card });
+        }
 
         [HttpPost]
         [HttpGet]
@@ -98,24 +108,14 @@ namespace Gymlog.Controllers
         //    }
         //}
 
-        [Authorize(Roles = AdminRole)]
-        [HttpPost]
-        public async Task<IActionResult> Create(string firtsName, string lastName, DateTime startData, DateTime endData, string cardId)
+
+        [HttpGet]
+        public async Task<IActionResult> MyCard()
         {
-            var card = await cardService.CreateAsync(firtsName, lastName, startData, endData, cardId);
+            var model = await cardService.MyCard(GetUserId());
 
-            TempData[UserMessageSuccess] = "Картата е добавена";
-
-            return RedirectToAction(nameof(CheckCard), new { cardNumber = card });
+            return View(model);
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> MyCard()
-        //{
-        //    var model = await cardService.MyCard(GetUserId());
-
-        //    return View(model);
-        //}
 
         [Authorize(Roles = AdminRole)]
         [HttpGet]
@@ -146,6 +146,7 @@ namespace Gymlog.Controllers
             return RedirectToAction("CheckCard", new { cardNumber = card.Id, check = false });
         }
 
+        [Authorize(Roles = AdminRole)]
         [HttpPost]
         public async Task<IActionResult> DeleteCard(int cardId)
         {
@@ -156,6 +157,7 @@ namespace Gymlog.Controllers
             return RedirectToAction(nameof(ViewCard));
         }
 
+        [Authorize(Roles = AdminRole)]
         [HttpGet]
         public async Task<IActionResult> ViewAllCards(string? searchQuery, string cardStatus = "all")
         {
@@ -166,6 +168,7 @@ namespace Gymlog.Controllers
             return View(cards);
         }
 
+        [Authorize(Roles = AdminRole)]
         [HttpGet]
         public async Task<IActionResult> ViewCardHistory(DateTime? data)
         {

@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gymlog.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240725224223_addAdmin2")]
-    partial class addAdmin2
+    [Migration("20250105135332_addPhoneNumberOnCards")]
+    partial class addPhoneNumberOnCards
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -104,7 +104,7 @@ namespace Gymlog.Infrastructure.Migrations
                         {
                             Id = "df7c92db-9dec-4483-9b0c-39836de8f44a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "179db4a2-5c44-4566-925f-6e76e730b012",
+                            ConcurrencyStamp = "d044d56a-b3b8-46e2-9c14-85f8b2e24d53",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -112,9 +112,10 @@ namespace Gymlog.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMhNmCvihlqPz7j/cPuNb3ZkajbEjIdLhvo0WPkmlASwKRRRhq7YmIbZiav6H3L7LA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECE8061/z6QtuG021JUXt5bQwdgcC4/HwHQGFkXlQViB4WQ1hpgT60pHRedLerSqOA==",
+                            PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d173d19-75b7-4842-9fdc-d3c161ef792a",
+                            SecurityStamp = "14d0f4bb-7a4a-4f44-bea4-df9b1aee90b5",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -128,6 +129,16 @@ namespace Gymlog.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CardId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Daily")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DailyCounting")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime2");
 
@@ -139,18 +150,61 @@ namespace Gymlog.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("Start")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("phoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Мonth")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("МonthCounting")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhoneNumber");
-
                     b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.CardReading", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReadingDateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("ReadingDateId");
+
+                    b.ToTable("CardReadings");
+                });
+
+            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.ReadingDate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReadingDates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -290,15 +344,23 @@ namespace Gymlog.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.Card", b =>
+            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.CardReading", b =>
                 {
-                    b.HasOne("Gymlog.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("PhoneNumber")
+                    b.HasOne("Gymlog.Infrastructure.Data.Models.Card", "Card")
+                        .WithMany("CardReadings")
+                        .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("Gymlog.Infrastructure.Data.Models.ReadingDate", "ReadingDate")
+                        .WithMany("CardReadings")
+                        .HasForeignKey("ReadingDateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Card");
+
+                    b.Navigation("ReadingDate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -350,6 +412,16 @@ namespace Gymlog.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.Card", b =>
+                {
+                    b.Navigation("CardReadings");
+                });
+
+            modelBuilder.Entity("Gymlog.Infrastructure.Data.Models.ReadingDate", b =>
+                {
+                    b.Navigation("CardReadings");
                 });
 #pragma warning restore 612, 618
         }

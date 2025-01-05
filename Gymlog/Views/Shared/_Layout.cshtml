@@ -27,18 +27,26 @@
                         <ul class="navbar-nav flex-grow-1">
                     @if (User.Identity.IsAuthenticated)
                     {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewCard">Регистрирай</a>
-                            </li>
                             <li>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Create">Нова карта</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="MyCard">Моята карта</a>
                             </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewAllCards">Всички карти</a>
-                            </li>
-                            <li>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewCardHistory">История</a>
-                            </li>
+                            @if (User.IsInRole(AdminRole))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewCard">Регистрирай</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Create">Нова карта</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewAllCards">Всички карти</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="ViewCardHistory">История</a>
+                                </li>
+                            }
+                            
+                            
                     }
                     </ul>
 

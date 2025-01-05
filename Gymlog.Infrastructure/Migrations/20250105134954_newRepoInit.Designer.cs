@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gymlog.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240917144421_updateCardModel2")]
-    partial class updateCardModel2
+    [Migration("20250105134954_newRepoInit")]
+    partial class newRepoInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -104,7 +104,7 @@ namespace Gymlog.Infrastructure.Migrations
                         {
                             Id = "df7c92db-9dec-4483-9b0c-39836de8f44a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f6cb9fc4-2ad5-4482-b154-6fdb4266978a",
+                            ConcurrencyStamp = "2da850ba-6edd-4d57-9a78-216953958cf6",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -112,10 +112,10 @@ namespace Gymlog.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJCUZaKL4/UGX7xfU2kuDLnclrdB+nWm4WB6FANARi8KeWhSYweWS8K9f9MI56VFew==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDXU6+0mV+0hequDHORf+2ytSuvl5fdln8iePV4xnpgkEwbw61Wgk+n/SvAIeRtmIQ==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "07d6899c-a718-41d1-a8a2-f6e831379f49",
+                            SecurityStamp = "b0d4ee12-0d99-4f05-9ba3-43ef82d60887",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

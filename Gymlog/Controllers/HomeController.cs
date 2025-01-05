@@ -17,7 +17,7 @@ namespace Gymlog.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return RedirectToAction("ViewCard", "Card");
+            return RedirectToAction("MyCard", "Card");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

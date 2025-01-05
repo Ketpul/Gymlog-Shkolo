@@ -113,12 +113,16 @@ namespace Gymlog.Core.Service
         }
 
 
-        public async Task<int> CreateAsync(string firstName, string lastName, DateTime startData, DateTime endData, string cardId)
+        public async Task<int> CreateAsync(string phoneNumber, DateTime startData, DateTime endData, string cardId)
         {
+
+            var user = await userManager.Users.FirstOrDefaultAsync(p => p.PhoneNumber == phoneNumber);
+
             var card = new Card()
             {
-                FirstName = firstName,
-                LastName = lastName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                phoneNumber = phoneNumber,
                 Start = startData,
                 End = endData,
                 CardId = cardId,
@@ -132,34 +136,34 @@ namespace Gymlog.Core.Service
             return card.Id;
         }
 
-        //public async Task<MyCardView> MyCard(string userId)
-        //{
-        //    var model = new MyCardView();
-        //    var user = await userManager.FindByIdAsync(userId);
-        //    var card = await repository.AllReadOnly<Card>().FirstOrDefaultAsync(c => c.User.Id == userId);
-        //    if (card == null)
-        //    {
-        //        model = new MyCardView
-        //        {
-        //            Id = -1,
-        //            FirstName = "",
-        //            LastName = "",
-        //            End = DateTime.MinValue,
-        //        };
+        public async Task<MyCardView> MyCard(string userId)
+        {
+            var model = new MyCardView();
+            var user = await userManager.FindByIdAsync(userId);
+            var card = await repository.AllReadOnly<Card>().FirstOrDefaultAsync(c => c.phoneNumber == user.PhoneNumber);
+            if (card == null)
+            {
+                model = new MyCardView
+                {
+                    Id = -1,
+                    FirstName = "",
+                    LastName = "",
+                    End = DateTime.MinValue,
+                };
 
-        //        return model;
-        //    };
+                return model;
+            };
 
-        //    model = new MyCardView
-        //    {
-        //        Id = card.Id,
-        //        FirstName = card.FirstName,
-        //        LastName = card.LastName,
-        //        End = card.End,
-        //    };
+            model = new MyCardView
+            {
+                Id = card.Id,
+                FirstName = card.FirstName,
+                LastName = card.LastName,
+                End = card.End,
+            };
 
-        //    return model;
-        //}
+            return model;
+        }
 
         public async Task<EditCard> GetViewForEdit(int cardId)
         {

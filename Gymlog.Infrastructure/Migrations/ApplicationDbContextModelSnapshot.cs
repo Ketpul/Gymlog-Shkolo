@@ -101,7 +101,7 @@ namespace Gymlog.Infrastructure.Migrations
                         {
                             Id = "df7c92db-9dec-4483-9b0c-39836de8f44a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db1a3c56-e2e8-45d0-a2a2-ea2526808e1d",
+                            ConcurrencyStamp = "d044d56a-b3b8-46e2-9c14-85f8b2e24d53",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -109,10 +109,10 @@ namespace Gymlog.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBBdVKH7Ao7yQHw5eJWpFsfA8wEr9PwLwfHjkhxtYgsJaJTuNe6PaUkDFtJcfhfLjw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECE8061/z6QtuG021JUXt5bQwdgcC4/HwHQGFkXlQViB4WQ1hpgT60pHRedLerSqOA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1c5faaf2-caa0-42d0-9d09-deaa18aa2447",
+                            SecurityStamp = "14d0f4bb-7a4a-4f44-bea4-df9b1aee90b5",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -149,6 +149,10 @@ namespace Gymlog.Infrastructure.Migrations
 
                     b.Property<DateTime>("Start")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("phoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Мonth")
                         .HasColumnType("int");

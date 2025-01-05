@@ -7,7 +7,7 @@ namespace Gymlog.Infrastructure.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
         public string FirstName { get; set; } = string.Empty;
 
@@ -32,6 +32,8 @@ namespace Gymlog.Infrastructure.Data.Models
         [Required]
         public DateTime МonthCounting { get; set; }
 
+        [Required]
+        public string phoneNumber { get; set; } = string.Empty;
 
         [Required]
         public int Мonth { get; set; }
