@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Photo\DALL·E 2025-01-10 18.45.25 - A clean and minimalist logo for %27GymLog%27, consisting solely of text. The letters are bold and modern, with a dynamic and sporty style. The font is cus.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
@@ -23,6 +27,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Gymlog.Core\Gymlog.Core.csproj" />
     <ProjectReference Include="..\Gymlog.Infrastructure\Gymlog.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Photo\" />
   </ItemGroup>
 
 </Project>
