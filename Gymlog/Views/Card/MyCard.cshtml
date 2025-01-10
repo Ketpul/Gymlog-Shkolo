@@ -1,6 +1,5 @@
 ﻿@using Gymlog.Core.Models.CardViews
 @using static Gymlog.Constants.RoleConstants;
-@using static Gymlog.
 @model MyCardView
 @{
     ViewData["Title"] = "My Card";
@@ -18,7 +17,7 @@
     <div class="conteiner">
         <div class="credit-card">
             <div class="card-logo">
-                <img src="./" alt="Card Logo">
+                <img src="../Photo/Photo.webp" alt="Card Logo">
                 @if (User.IsInRole(AdminRole))
                 {
                     <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="EditCard" asp-route-cardId="@Model.Id">Редактирай</a>
