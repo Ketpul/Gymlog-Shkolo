@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "mssql3": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/Gymlog/providers/Microsoft.ServiceLinker/linkers/sqlservergymlogprojeckt.database.windows_A6F11746B9",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/gymlogdbserver/databases/Gymlog_db",
+      "type": "mssql.azure",
+      "connectionId": "sqlservergymlogprojeckt.database.windows.net",
+      "dynamicId": null
+    }
+  }
+}
